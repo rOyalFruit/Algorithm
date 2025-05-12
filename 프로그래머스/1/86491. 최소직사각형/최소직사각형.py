@@ -1,4 +1,1 @@
-def solution(sizes):
-    w = max([max(size) for size in sizes])
-    h = max([min(size) for size in sizes])
-    return w * h
+solution = lambda sizes: max([max(size) for size in sizes]) * max([min(size) for size in sizes])
