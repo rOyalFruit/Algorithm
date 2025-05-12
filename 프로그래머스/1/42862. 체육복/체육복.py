@@ -1,10 +1,6 @@
 def solution(n, lost, reserve):
-    lost_set = set(lost)
-    reserve_set = set(reserve)
-    
-    intersection = lost_set & reserve_set
-    lost_set -= intersection
-    reserve_set -= intersection
+    lost_set = set(lost) - set(reserve)
+    reserve_set = set(reserve) - set(lost)
     
     for i in reserve_set:
         if i - 1 in lost_set:
