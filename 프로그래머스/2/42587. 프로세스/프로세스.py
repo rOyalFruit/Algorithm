@@ -4,8 +4,10 @@ def solution(priorities, location):
     
     while True:
         cur = lst.pop(0)
-        if any(cur[1] < e[1] for e in lst):
-            lst.append(cur)
+        for e in lst:
+            if cur[1] < e[1]:
+                lst.append(cur)
+                break
         else:
             answer += 1
             if cur[0] == location:
