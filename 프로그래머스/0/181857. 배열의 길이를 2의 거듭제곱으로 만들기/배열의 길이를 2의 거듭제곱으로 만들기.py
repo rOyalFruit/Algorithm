@@ -1,8 +1,7 @@
 def solution(arr):
-    i = 0
+    i = 1
     
-    while len(arr) > 2 ** i:
-        i += 1
+    while len(arr) > i:
+        i *= 2
     
-    arr.extend([0 for _ in range(2 ** i - len(arr))])
-    return arr
+    return arr + [0] * (i-len(arr))
