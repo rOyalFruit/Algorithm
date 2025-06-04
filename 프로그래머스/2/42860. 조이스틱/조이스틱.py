@@ -1,12 +1,9 @@
 def solution(name):
-    alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-    dic = {k: v for v, k in enumerate(alphabet)}
     vertical = 0
     horizontal = len(name) - 1  # 기본 최대 이동값
     
     # 1. 상하 이동 계산
-    for c in name:
-        vertical += min(dic[c], len(alphabet) - dic[c])
+    vertical = sum(min(ord(c) - ord('A'), ord('Z') - ord(c) + 1) for c in name)
     
     # 2. 좌우 이동 계산
     for i in range(len(name)):
