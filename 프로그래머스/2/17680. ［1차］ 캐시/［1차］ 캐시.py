@@ -3,19 +3,19 @@ from collections import deque
 
 def solution(cacheSize, cities):
     answer = 0
-    q = deque()
+    q = deque(maxlen=cacheSize)
     
+    if cacheSize == 0:
+        return len(cities) * 5  # 캐시가 없으므로 모두 미스
+
     for city in cities:
-        if city.lower() in q:
-            q.append(city.lower())
-            q.remove(city.lower())
-            answer += 1
+        city = city.lower()
+        if city in q:
+            q.remove(city)
+            q.append(city)
+            answer += 1  
         else:
-            if len(q) >= cacheSize:
-                q.append(city.lower())
-                q.popleft()
-            else:
-                q.append(city.lower())
-            answer += 5
+            q.append(city)
+            answer += 5  
             
     return answer
