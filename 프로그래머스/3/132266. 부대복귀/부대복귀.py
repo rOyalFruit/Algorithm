@@ -20,4 +20,4 @@ def solution(n, roads, sources, destination):
                 visited[next] = visited[cur] + 1
                 q.append(next)
                 
-    return [visited[source] if visited[source] != -1 else -1 for source in sources]
+    return [visited[source] for source in sources]
