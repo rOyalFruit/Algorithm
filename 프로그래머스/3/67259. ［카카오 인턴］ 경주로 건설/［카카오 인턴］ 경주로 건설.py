@@ -9,6 +9,10 @@ def solution(board):
     while heap:
         cur_cost, ci, cj, prev_dir = heapq.heappop(heap)
         
+        # 현재 상태가 더 낮은 비용으로 이미 처리된 경우 스킵
+        if prev_dir != -1 and cur_cost > costs[ci][cj][prev_dir]:
+            continue
+        
         for cur_dir, (di, dj) in enumerate(zip([1, -1, 0, 0], [0, 0, 1, -1])):
             ni = ci + di
             nj = cj + dj
