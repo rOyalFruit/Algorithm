@@ -4,5 +4,5 @@ def solution(n):
     
     while bin(next)[2:].count('1') != target:
         next += 1
-        
+    
     return next
