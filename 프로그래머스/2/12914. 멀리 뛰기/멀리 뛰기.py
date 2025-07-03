@@ -4,6 +4,6 @@ def solution(n):
     
     prev, curr = 1, 2
     for i in range(3, n+1):
-        prev, curr = curr, prev + curr
+        prev, curr = curr, (prev + curr) % 1234567
         
-    return curr % 1234567
+    return curr
