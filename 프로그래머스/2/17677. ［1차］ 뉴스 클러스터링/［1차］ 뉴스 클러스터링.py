@@ -1,34 +1,20 @@
 from collections import Counter
 
-def func(s):
-    result = []
-    s = s.lower()
-    
-    for i in range(len(s)-1):
-        if 97 <= ord(s[i]) <= 122 and 97 <= ord(s[i+1]) <= 122:
-            result.append(s[i:i+2])
-    
-    return result
-
 
 def solution(str1, str2):
-    lst1 = func(str1)
-    lst2 = func(str2)
+    pairs1 = [str1[i:i+2].lower() for i in range(len(str1) - 1) if str1[i:i+2].isalpha()]
+    pairs2 = [str2[i:i+2].lower() for i in range(len(str2) - 1) if str2[i:i+2].isalpha()]
 
-    union = set(lst1) | set(lst2)
-    intersection = set(lst1) & set(lst2)
-    
-    lst1_counter = Counter(lst1)
-    lst2_counter = Counter(lst2)
+    counter1 = Counter(pairs1)
+    counter2 = Counter(pairs2)
 
-    u = []
-    i = []
-    for key in union:
-        for _ in range(max(lst1_counter[key], lst2_counter[key])):
-            u.append(key)
+    intersection_counter = counter1 & counter2  # 두 Counter의 공통 원소 중 더 작은 개수를 가지는 교집합
+    union_counter = counter1 | counter2         # 두 Counter의 모든 원소 중 더 큰 개수를 가지는 합집합
     
-    for key in intersection:
-        for _ in range(min(lst1_counter[key], lst2_counter[key])):
-            i.append(key)
-            
-    return int(len(i) / len(u) * 65536) if len(u) != 0 else 65536
+    intersection_size = sum(intersection_counter.values())
+    union_size = sum(union_counter.values())
+    
+    if union_size == 0:
+        return 65536
+    
+    return int((intersection_size / union_size) * 65536)
