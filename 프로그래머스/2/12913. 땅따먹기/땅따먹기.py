@@ -1,11 +1,6 @@
 def solution(land):
-    n = len(land)
-    for i in range(1, n):
+    for i in range(1, len(land)):
         for j in range(4):
-            temp = land[i][j]
-            for k in range(4):
-                if j == k:
-                    continue
-                land[i][j] = max(land[i][j], temp + land[i-1][k])
+            land[i][j] = max(land[i-1][:j] + land[i-1][j+1:]) + land[i][j]
                 
-    return max(land[n-1])
+    return max(land[-1])
