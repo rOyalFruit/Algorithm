@@ -2,9 +2,7 @@ def solution(n, s):
     if n > s:
         return [-1]
     
-    remain = s - (s // n) * n
-    answer = [s // n for _ in range(n)]
-    for i in range(1, remain+1):
-        answer[-i] += 1
-        
+    quotient, remainder = divmod(s, n)
+    answer = [quotient] * (n - remainder) + [quotient + 1] * remainder # ex) [4] + [5]
+    
     return answer
