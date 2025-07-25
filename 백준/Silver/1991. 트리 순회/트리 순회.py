@@ -1,56 +1,29 @@
-from collections import defaultdict
+def traverse(root, order):
+    # Base Case: 리프 노드의 자식('.')에 도달하면 빈 리스트를 반환
+    if root == '.':
+        return []
+
+    left_child, right_child = tree[root]
+
+    # 재귀적으로 왼쪽과 오른쪽 서브트리의 결과를 미리 계산
+    left_result = traverse(left_child, order)
+    right_result = traverse(right_child, order)
+
+    # 순서에 따라 루트와 자식들의 결과를 조합하여 반환
+    if order == 'pre':
+        return [root] + left_result + right_result
+    elif order == 'in':
+        return left_result + [root] + right_result
+    else:  # 'post'
+        return left_result + right_result + [root]
 
 
-def preorder(tree, root):
-    global preorder_result
-    preorder_result.append(root)
-
-    if tree[root][0] != '.':
-        preorder(tree, tree[root][0])
-
-    if tree[root][1] != '.':
-        preorder(tree, tree[root][1])
-
-    return
-
-def inorder(tree, root):
-    global inorder_result
-    if tree[root][0] != '.':
-        inorder(tree, tree[root][0])
-
-    inorder_result.append(root)
-
-    if tree[root][1] != '.':
-        inorder(tree, tree[root][1])
-
-    return
-
-def postorder(tree, root):
-    global postorder_result
-    if tree[root][0] != '.':
-        postorder(tree, tree[root][0])
-
-    if tree[root][1] != '.':
-        postorder(tree, tree[root][1])
-
-    postorder_result.append(root)
-
-    return
-
-tree = defaultdict(list)
+tree = {}
 n = int(input())
 for _ in range(n):
-    parent, left, right = input().split(" ")
+    parent, left, right = input().split()
     tree[parent] = [left, right]
 
-preorder_result = []
-inorder_result = []
-postorder_result = []
-
-preorder(tree, 'A')
-inorder(tree, 'A')
-postorder(tree, 'A')
-
-print("".join(preorder_result))
-print("".join(inorder_result))
-print("".join(postorder_result))
+print("".join(traverse('A', 'pre')))
+print("".join(traverse('A', 'in')))
+print("".join(traverse('A', 'post')))
